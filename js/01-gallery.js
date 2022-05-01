@@ -9,7 +9,6 @@ const galleryContainer = document.querySelector('.gallery');
 const cardsMarkup = createMarkup(galleryItems);
 galleryContainer.insertAdjacentHTML('beforeend', cardsMarkup);
 
-
 function createMarkup(items) {
   return items
     .map(({ preview, original, description }) => {
@@ -29,11 +28,11 @@ function createMarkup(items) {
 }
 // Відкриття модалки
 
-const onClickOpenModal = (event) => {
-	event.preventDefault();
-	const source = event.target.dataset.source;
-	const intense = basicLightbox.create(
-		`
+const onClickOpenModal = event => {
+  event.preventDefault();
+  const source = event.target.dataset.source;
+  const intense = basicLightbox.create(
+    `
 		<img
       class="gallery__image"
       src="${source}"
@@ -43,22 +42,20 @@ const onClickOpenModal = (event) => {
       height="600"
     />
 		`,
-		{
-			onShow: (intense) => {
-				window.addEventListener('keydown', onEscPress);
-			},
-			onClose: (intense) => {
-				window.removeEventListener('keydown', onEscPress);
-			}
-		});
-	
-	const onEscPress = (event) => {
-		if (event.code === "Escape") {
-			intense.close();
-		}
-	};
+    {
+      onShow: intense => {
+        window.addEventListener('keydown', onEscPress);
+      },
+    }
+  );
 
-	intense.show();
+  const onEscPress = event => {
+    if (event.code === 'Escape') {
+      intense.close();
+    }
+  };
+
+  intense.show();
 };
 
 galleryContainer.addEventListener('click', onClickOpenModal);
