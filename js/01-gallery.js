@@ -46,6 +46,9 @@ const onClickOpenModal = event => {
       onShow: intense => {
         window.addEventListener('keydown', onEscPress);
       },
+      onClose: intense => {
+        window.removeEventListener('keydown', onEscPress);
+      }
     }
   );
 
